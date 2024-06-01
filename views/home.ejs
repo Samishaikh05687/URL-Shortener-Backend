@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 2rem auto;
+        width: 80%;
+      }
+      .head {
+        font-size: 60px;
+        text-align: center;
+        color: #3c9ae1;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid #3c9ae1;
+        padding-bottom: 0.5rem;
+      }
+      p {
+        font-size: 20px;
+        font-weight: 600;
+        margin: 1rem 0;
+        color: #5a5a5a;
+      }
+      label {
+        font-size: 25px;
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
+      input {
+        font-size: 20px;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+        max-width: 400px;
+      }
+      button {
+        font-size: 20px;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 4px;
+        background-color: #3c9ae1;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      button:hover {
+        background-color: #357abd;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 2rem 0;
+      }
+      table th,
+      table td {
+        padding: 1rem;
+        text-align: left;
+        border: 1px solid #ccc;
+      }
+      table th {
+        background-color: #3c9ae1;
+        color: white;
+      }
+      table tbody tr:nth-child(odd) {
+        background-color: #f9f9f9;
+      }
+      table tbody tr:hover {
+        background-color: #f1f1f1;
+      }
+      .main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 2rem;
+        width: 100%;
+      }
+      .form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 500px;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL-Shortener</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="head">URL-SHORTENER</h1>
+      <% if (locals.id) { %>
+        <p>Generated URL: https://localhost9000/url/<%= id %></p>
+      <% } %>
+      <div class="main">
+        <form method="POST" action="/url" class="form">
+          <label>Enter Your Original URL</label>
+          <input type="text" name="url" placeholder="https://example.com" required />
+          <button type="submit">Generate</button>
+        </form>
+      </div>
+      <div class="main">
+        <% if (locals.urls) { %>
+          <table>
+            <thead>
+              <tr>
+                <th>S.No</th>
+                <th>ShortID</th>
+                <th>Redirect</th>
+                <th>Clicks</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% urls.forEach((url, index) => { %>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= url.shortId %></td>
+                  <td><%= url.redirectURL %></td>
+                  <td><%= url.visitHistory.length %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>
