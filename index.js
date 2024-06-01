@@ -1,9 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
+const cookieParser = require("cookie-parser")
+const {restrictToLoggedInUserOnly,checkAuth} = require("./middlewares/auth")
+
+const URL = require("./models/url");
+
 const urlRoute = require("./route/url");
 const staticRoute = require("./route/staticRouter");
-const URL = require("./models/url");
+const userRoute = require("./route/user");
 
 const app = express();
 const PORT = 9000;
@@ -18,11 +23,13 @@ app.set("views",path.resolve("./views"))
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
+app.use(cookieParser());
 
 
 
-app.use("/url", urlRoute);
-app.use("/",staticRoute);
+app.use("/url",restrictToLoggedInUserOnly,urlRoute);
+app.use("/",checkAuth,staticRoute);
+app.use("/user",userRoute);
 
 
 app.get("/url/:shortId", async (req, res) => {
