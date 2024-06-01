@@ -10,10 +10,7 @@ A simple URL shortener application built with Node.js, Express, and MongoDB. The
 - [Installation](#installation)
 - [Running the Application](#running-the-application)
 - [Usage](#usage)
-- [Endpoints](#endpoints)
-- [Technologies Used](#technologies-used)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ## Features
 
